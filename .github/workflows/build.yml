@@ -9,8 +9,17 @@ jobs:
     strategy:
       matrix:
         python-version: [2.7, 3.6, 3.7, 3.8]
+        include:
+          - python-version: 2.7
+            toxenv: PY27
+          - python-version: 3.6
+            toxenv: PY36
+          - python-version: 3.7
+            toxenv: PY37
+          - python-version: 3.8
+            toxenv: PY38
     env:
-      TOXENV: ${{ matrix.python-version }}
+      TOXENV: ${{ matrix.toxenv }}
 
     steps:
     - uses: actions/checkout@v1
