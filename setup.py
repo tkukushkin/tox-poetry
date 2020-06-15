@@ -16,7 +16,7 @@ setup(
     version='0.1.0',
     author='Timofey Kukushkin',
     author_email='tima@kukushkin.me',
-    url='https://github.com/ermakov-oleg/tox-pipenv-install',
+    url='https://github.com/tkukushkin/tox-poetry',
     py_modules=['tox_poetry'],
     package_dir={'': 'src'},
     install_requires=[
