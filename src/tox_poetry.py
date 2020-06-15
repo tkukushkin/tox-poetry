@@ -1,6 +1,5 @@
 import pluggy
 import toml
-import tox
 
 
 hook_impl = pluggy.HookimplMarker('tox')
