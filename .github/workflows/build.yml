@@ -38,7 +38,7 @@ jobs:
       uses: codecov/codecov-action@v1.0.3
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        file: .tox/${{ matrix.python-version }}/log/coverage.xml
+        file: .tox/${{ matrix.toxenv }}/log/coverage.xml
   
   publish:
     needs: [build]
