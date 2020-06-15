@@ -1,0 +1,18 @@
+[MESSAGES CONTROL]
+disable =
+  invalid-name,
+  missing-docstring,
+  no-self-use,
+  protected-access,
+  too-few-public-methods,
+  useless-object-inheritance
+
+[REPORTS]
+output-format = text
+reports = no
+
+[BASIC]
+single-line-if-stmt = no
+
+[MISCELLANEOUS]
+notes = FIXME,XXX,TODO

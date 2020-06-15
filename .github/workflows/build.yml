@@ -1,0 +1,94 @@
+name: build
+
+on: [push]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [2.7, 3.6, 3.7, 3.8]
+    env:
+      TOXENV: ${{ matrix.python-version }}
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Test with tox
+      run: |
+        pip install -U tox
+        tox -v
+        
+    - name: Upload code coverage
+      uses: codecov/codecov-action@v1.0.3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: .tox/${{ matrix.python-version }}/log/coverage.xml
+  
+  publish:
+    needs: [build]
+    if: startsWith(github.event.ref, 'refs/tags')
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install setuptools wheel twine
+    
+    - name: Build
+      run: python setup.py sdist bdist_wheel
+        
+    - name: Publish to PyPi
+      env:
+        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+      run: twine upload dist/*
+        
+    - name: Create Github Release
+      id: create_release
+      uses: actions/create-release@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        
+    - name: Get release assets names
+      id: get_release_names
+      run: |
+        echo ::set-output name=tar_gz::$(basename $(/bin/ls dist/*.tar.gz))
+        echo ::set-output name=whl::$(basename $(ls dist/*.whl))
+    
+    - name: Upload .tar.gz
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: dist/${{ steps.get_release_names.outputs.tar_gz }}
+        asset_name: ${{ steps.get_release_names.outputs.tar_gz }}
+        asset_content_type: application/gzip
+
+    - name: Upload .whl
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: dist/${{ steps.get_release_names.outputs.whl }}
+        asset_name: ${{ steps.get_release_names.outputs.whl }}
+        asset_content_type: application/zip
