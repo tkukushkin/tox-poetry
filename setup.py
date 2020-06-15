@@ -28,7 +28,7 @@ setup(
             'coverage',
             'pycodestyle;python_version>="3.8"',
             'pylint;python_version>="3.8"',
-            'pytest',
+            'pytest<5',
         ],
     },
     entry_points={
