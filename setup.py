@@ -13,7 +13,7 @@ setup(
     description='Tox poetry plugin',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    version='0.1.0',
+    version='0.1.1',
     author='Timofey Kukushkin',
     author_email='tima@kukushkin.me',
     url='https://github.com/tkukushkin/tox-poetry',
@@ -28,9 +28,9 @@ setup(
     extras_require={
         'test': [
             'coverage',
-            'pycodestyle;python_version>="3.8"',
-            'pylint;python_version>="3.8"',
-            'pytest<5',
+            'pycodestyle;python_version>="3.9"',
+            'pylint;python_version>="3.9"',
+            'pytest',
         ],
     },
     entry_points={
@@ -49,6 +49,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Operating System :: OS Independent',
