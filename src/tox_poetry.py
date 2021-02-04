@@ -16,7 +16,8 @@ def tox_testenv_install_deps(venv, action):
         return
 
     pyproject = toml.loads(pyproject_toml_path.read())
-    if pyproject.get('build-system', {}).get('build-backend') != 'poetry.masonry.api':
+    build_backend = pyproject.get('build-system', {}).get('build-backend')
+    if build_backend not in ['poetry.masonry.api', 'poetry.core.masonry.api']:
         return
 
     poetry_path = venv.getcommandpath('poetry', venv=False)
