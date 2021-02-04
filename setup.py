@@ -13,7 +13,7 @@ setup(
     description='Tox poetry plugin',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    version='0.1.2',
+    version='0.1.3',
     author='Timofey Kukushkin',
     author_email='tima@kukushkin.me',
     url='https://github.com/tkukushkin/tox-poetry',
