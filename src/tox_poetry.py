@@ -20,7 +20,7 @@ def tox_configure(config):
     if build_backend not in ['poetry.masonry.api', 'poetry.core.masonry.api']:
         return
 
-    global _is_poetry_project
+    global _is_poetry_project  # pylint: disable=global-statement
     _is_poetry_project = True
 
     config.skipsdist = True
