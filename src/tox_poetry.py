@@ -2,16 +2,16 @@ import pluggy
 import toml
 
 
-hook_impl = pluggy.HookimplMarker('tox')
+_hookimpl = pluggy.HookimplMarker('tox')
+
+_is_poetry_project = False
 
 
-@hook_impl(hookwrapper=True)
-def tox_testenv_install_deps(venv, action):
+@_hookimpl(hookwrapper=True)
+def tox_configure(config):
     yield
 
-    project_root = venv.envconfig.config.toxinidir
-
-    pyproject_toml_path = project_root.join('pyproject.toml')
+    pyproject_toml_path = config.toxinidir.join('pyproject.toml')
     if not pyproject_toml_path.exists():
         return
 
@@ -20,12 +20,27 @@ def tox_testenv_install_deps(venv, action):
     if build_backend not in ['poetry.masonry.api', 'poetry.core.masonry.api']:
         return
 
+    global _is_poetry_project
+    _is_poetry_project = True
+
+    config.skipsdist = True
+
+
+@_hookimpl(hookwrapper=True)
+def tox_testenv_install_deps(venv, action):
+    yield
+
+    if not _is_poetry_project:
+        return
+
+    project_root = venv.envconfig.config.toxinidir
+
     cmd = [
         venv.getcommandpath('poetry', venv=False),
         'install',
     ]
     for extra in venv.envconfig.extras:
-        cmd += ['--extras', extra]
+        cmd += ['-E', extra]
 
     action.setactivity('installdeps', ' '.join(cmd))
     venv._pcall(  # pylint: disable=protected-access
