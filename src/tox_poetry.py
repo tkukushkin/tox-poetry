@@ -20,11 +20,16 @@ def tox_testenv_install_deps(venv, action):
     if build_backend not in ['poetry.masonry.api', 'poetry.core.masonry.api']:
         return
 
-    poetry_path = venv.getcommandpath('poetry', venv=False)
+    cmd = [
+        venv.getcommandpath('poetry', venv=False),
+        'install',
+    ]
+    for extra in venv.envconfig.extras:
+        cmd += ['--extras', extra]
 
-    action.setactivity('installdeps', '{} install'.format(poetry_path))
+    action.setactivity('installdeps', ' '.join(cmd))
     venv._pcall(  # pylint: disable=protected-access
-        [poetry_path, 'install'],
+        cmd,
         action=action,
         cwd=project_root,
     )

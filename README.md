@@ -25,7 +25,11 @@ commands =
   pytest tests/
 ```
 
-Plugin installs all dependencies from pyproject.toml before running any commands. Like simple tox `deps`, poetry dependencies are installed only once when tox environment is created, you can run `tox -r` to recreate environment.
+Plugin installs all dependencies from pyproject.toml before running any commands. 
+Like simple tox `deps`, poetry dependencies are installed only once when tox environment is created, 
+you can run `tox -r` to recreate environment.
+
+[`extras`](https://tox.readthedocs.io/en/latest/config.html#conf-extras) supported too.
 
 Exampel pyproject.toml:
 
