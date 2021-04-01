@@ -31,7 +31,7 @@ you can run `tox -r` to recreate environment.
 
 [`extras`](https://tox.readthedocs.io/en/latest/config.html#conf-extras) supported too.
 
-Exampel pyproject.toml:
+Example pyproject.toml:
 
 ```toml
 [build-system]
