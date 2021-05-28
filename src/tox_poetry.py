@@ -1,5 +1,7 @@
 import pluggy
 import toml
+import sys
+from tox.exception import InvocationError
 
 
 _hookimpl = pluggy.HookimplMarker('tox')
@@ -35,10 +37,15 @@ def tox_testenv_install_deps(venv, action):
 
     project_root = venv.envconfig.config.toxinidir
 
-    cmd = [
-        venv.getcommandpath('poetry', venv=False),
-        'install',
-    ]
+    cmd = []
+    try:
+        cmd.append(venv.getcommandpath('poetry', venv=False))
+    except InvocationError:
+        cmd.append(sys.executable)
+        cmd.append("-m")
+        cmd.append("poetry")
+
+    cmd.append("install")
     for extra in venv.envconfig.extras:
         cmd += ['-E', extra]
 
