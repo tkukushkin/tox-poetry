@@ -1,6 +1,7 @@
+import sys
+
 import pluggy
 import toml
-import sys
 from tox.exception import InvocationError
 
 
