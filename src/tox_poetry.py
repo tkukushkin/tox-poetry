@@ -51,8 +51,12 @@ def tox_testenv_install_deps(venv, action):
         cmd += ['-E', extra]
 
     action.setactivity('installdeps', ' '.join(cmd))
+    # Force UTF-8 encoding, since tox log parser epxects this (~ tox\action.py", line 128, in popen).
+    env = venv._get_os_environ()  # pylint: disable=protected-access
+    env["PYTHONIOENCODING"] = "UTF-8"
     venv._pcall(  # pylint: disable=protected-access
         cmd,
         action=action,
         cwd=project_root,
+        env=env,
     )
