@@ -16,3 +16,6 @@ single-line-if-stmt = no
 
 [MISCELLANEOUS]
 notes = FIXME,XXX,TODO
+
+[FORMAT]
+max-line-length = 120
