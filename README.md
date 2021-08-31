@@ -18,7 +18,8 @@ tox.ini:
 
 ```ini
 [tox]
-envlist = py38
+envlist = py39
+skipsdist = True
 
 [testenv]
 commands =
