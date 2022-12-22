@@ -17,7 +17,12 @@ if TOX_MAJOR_VERSION >= 4:
 
     @impl
     def tox_add_env_config(env_conf: EnvConfigSet, state: State):
-        env_conf.load("allowlist_externals").append("poetry")
+        if not state.conf.core.load("is_poetry_project"):
+            return
+
+        if "poetry" not in env_conf.load("allowlist_externals"):
+            env_conf.load("allowlist_externals").append("poetry")
+
         env_conf.add_config(
             keys=["extras"],
             of_type=List[str],
