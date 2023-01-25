@@ -8,12 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [2.7, 3.6, 3.7, 3.8, 3.9]
+        python-version: [3.7, 3.8, 3.9]
         include:
-          - python-version: 2.7
-            toxenv: py27
-          - python-version: 3.6
-            toxenv: py36
           - python-version: 3.7
             toxenv: py37
           - python-version: 3.8
