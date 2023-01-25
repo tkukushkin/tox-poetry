@@ -2,6 +2,7 @@ import sys
 
 import pluggy
 import toml
+from tox.reporter import verbosity0
 from tox.exception import InvocationError
 
 
@@ -50,6 +51,11 @@ def tox_testenv_install_deps(venv, action):
     for extra in venv.envconfig.extras:
         cmd += ['-E', extra]
 
+    verbosity0(
+        'tox-poetry is now deprecated, please follow the examples in the official poetry documentation: '
+        'https://python-poetry.org/docs/faq/#is-tox-supported',
+        bold=True,
+    )
     action.setactivity('installdeps', ' '.join(cmd))
     # Force UTF-8 encoding, since tox log parser epxects this (~ tox\action.py", line 128, in popen).
     env = venv._get_os_environ()  # pylint: disable=protected-access

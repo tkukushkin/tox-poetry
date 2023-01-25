@@ -4,7 +4,12 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/tox-poetry.svg?color=green)
 [![Build Status](https://github.com/tkukushkin/tox-poetry/workflows/build/badge.svg?branch=master)](https://github.com/tkukushkin/tox-poetry/actions?query=workflow%3Abuild+branch%3Amaster)
 
-[comment]: <> ([![codecov]&#40;https://codecov.io/gh/tkukushkin/tox-poetry/branch/master/graph/badge.svg&#41;]&#40;https://codecov.io/gh/tkukushkin/tox-poetry&#41;)
+------
+
+:bangbang: **tox-poetry is now deprecated, please follow the examples in the 
+[official poetry documentation](https://python-poetry.org/docs/faq/#is-tox-supported).**
+
+------
 
 ## Usage:
 

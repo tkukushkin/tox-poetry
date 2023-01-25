@@ -21,7 +21,7 @@ setup(
     package_dir={'': 'src'},
     install_requires=[
         'pluggy',
-        'tox>=3.7.0;python_version>="3"',
+        'tox>=3.7.0,<4;python_version>="3"',
         'tox==3.15.1;python_version<"3"',
         'toml',
     ],
